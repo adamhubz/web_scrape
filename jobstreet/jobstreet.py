@@ -75,7 +75,10 @@ def scrape(pathdriver = "./chromedriver.exe",job = '', location = '', t_wait = 5
                     pass
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         # go to next page:
-        driver.find_element(By.XPATH, '//a[contains(@href, "job-search")]').click()
+        if page == 1:
+            driver.find_element(By.XPATH, '//a[@class = "sx2jih0 zcydq896 zcydq886 zcydq8o zcydq856 zcydq8ea zcydq8h zcydq8y zcydq8x IQYn5_0 _18qlyvc14 _18qlyvc17 zcydq832 zcydq835"]').click()
+        else:
+            driver.find_element(By.XPATH, '//a[@class = "sx2jih0 zcydq896 zcydq886 zcydq8o zcydq856 zcydq8ea zcydq8h zcydq8y zcydq8x IQYn5_0 _18qlyvc14 _18qlyvc17 zcydq832 zcydq835"][2]').click()
 
     print('Found ' + str(len(links)) + ' links for job offers')
 
