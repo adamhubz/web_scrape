@@ -62,7 +62,7 @@ def scrape(pathdriver = "./chromedriver.exe",job = '', location = '', t_wait = 5
         print(f'Collecting the links in the page: {page}')
         time.sleep(2)
         jobs_block = driver.find_element(By.XPATH, '//div[@data-automation = "jobListing"]')
-        jobs_list= jobs_block.find_elements(By.XPATH, '//h1[@class = "sx2jih0 zcydq84u _18qlyvc0 _18qlyvc1x _18qlyvc3 _18qlyvca"]')
+        jobs_list= jobs_block.find_elements(By.XPATH, '//h1[@class = "sx2jih0 zcydq84u es8sxo0 es8sxo3 es8sxo21 es8sxoi"]')
         for job in jobs_list:
             all_links = job.find_elements(By.XPATH,'//a[contains(@href, "/job/")]')
             num = 1
@@ -75,11 +75,8 @@ def scrape(pathdriver = "./chromedriver.exe",job = '', location = '', t_wait = 5
                     pass
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         # go to next page:
-        if page == 1:
-            driver.find_element(By.XPATH, '//a[@class = "sx2jih0 zcydq896 zcydq886 zcydq8o zcydq856 zcydq8ea zcydq8h zcydq8y zcydq8x IQYn5_0 _18qlyvc14 _18qlyvc17 zcydq832 zcydq835"]').click()
-        else:
-            driver.find_element(By.XPATH, '//a[@class = "sx2jih0 zcydq896 zcydq886 zcydq8o zcydq856 zcydq8ea zcydq8h zcydq8y zcydq8x IQYn5_0 _18qlyvc14 _18qlyvc17 zcydq832 zcydq835"][2]').click()
-
+        driver.find_element(By.XPATH, f'//div[@data-automation = "pagination"]/a[contains(@href, "{page + 1}")]').click()
+            
     print('Found ' + str(len(links)) + ' links for job offers')
 
     # Create empty lists to store information
@@ -103,8 +100,8 @@ def scrape(pathdriver = "./chromedriver.exe",job = '', location = '', t_wait = 5
             time.sleep(2)
             card = driver.find_element(By.XPATH, '//div[@class = "sx2jih0 zcydq8r zcydq8p _16wtmva0 _16wtmva4"]')
             driver.execute_script("arguments[0].scrollIntoView();", card)
-            job_titles.append(card.find_element(By.XPATH, '//h1[contains(@class, "sx2jih0 _18qlyvc0 _18qlyvch _1d0g9qk4 _18qlyvcp _18qlyvc1x")]').text)
-            company_names.append(card.find_element(By.XPATH, '//span[contains(@class, "sx2jih0 zcydq84u _18qlyvc0 _18qlyvc1x _18qlyvc2 _1d0g9qk4 _18qlyvcb")]').text)
+            job_titles.append(card.find_element(By.XPATH, '//h1[contains(@class, "sx2jih0 zcydq84u es8sxo0 es8sxol _1d0g9qk4 es8sxos es8sxo21")]').text)
+            company_names.append(card.find_element(By.XPATH, '//span[contains(@class, "sx2jih0 zcydq84u es8sxo0 es8sxo2 es8sxo21 _1d0g9qk4 es8sxoa")]').text)
             card_details = card.find_element(By.XPATH, '//div[@class = "sx2jih0 zcydq84u zcydq87i zcydq87r zcydq89m zcydq8p"]').text
             details.append(card_details)
         except:
